@@ -51,7 +51,7 @@ const MenuSection = () => {
       {/* menu image section */}
       <section className="max-w-6xl mx-auto px-4 py-12">
         <h2 className="text-3xl font-bold text-red-600 text-center mb-10">
-          Swaad Nation Foods Menu
+          Foodify Foods Menu
         </h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {menuItems.length > 0 ? (
