@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 const MenuSection = () => {
   const [menuItems, setMenuItems] = useState([]);
@@ -9,14 +9,14 @@ const MenuSection = () => {
   useEffect(() => {
     const fetchMenu = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/menu');
+        const { data } = await axios.get("http://localhost:5000/api/menu");
         if (Array.isArray(data)) {
           setMenuItems(data);
         } else {
           setMenuItems([]);
         }
       } catch (err) {
-        console.error('Failed to fetch menu items', err);
+        console.error("Failed to fetch menu items", err);
         setMenuItems([]);
       }
     };
@@ -38,36 +38,44 @@ const MenuSection = () => {
         <div className="relative max-w-3xl mx-auto text-center">
           <h2 className="text-5xl font-bold mb-6 text-white">Menu</h2>
           <p className="text-lg font-bold text-white">
-            At Fresheat, we pride ourselves on delivering freshly prepared, wholesome meals every day — crafted with the finest ingredients, bursting with vibrant flavors, and made to nourish both body and soul. Our commitment is to serve you culinary creations that are as delicious as they are nutritious, ensuring every bite feels like home-cooked goodness.
+            At Fresheat, we pride ourselves on delivering freshly prepared,
+            wholesome meals every day — crafted with the finest ingredients,
+            bursting with vibrant flavors, and made to nourish both body and
+            soul. Our commitment is to serve you culinary creations that are as
+            delicious as they are nutritious, ensuring every bite feels like
+            home-cooked goodness.
           </p>
         </div>
       </section>
 
       {/* menu image section */}
       <section className="max-w-6xl mx-auto px-4 py-12">
-        <h2 className="text-3xl font-bold text-red-600 text-center mb-10">Swaad Nation Foods Menu</h2>
+        <h2 className="text-3xl font-bold text-red-600 text-center mb-10">
+          Swaad Nation Foods Menu
+        </h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {menuItems.length > 0 ? (
             menuItems.map((item) => (
               <div
-                key={item.id}
-                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col justify-between hover:bg-black hover:text-white"
+                key={item._id}
+                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col justify-between"
               >
-                <Link to={`/product/${item.id}`}>
+                <Link to={`/product/${item._id}`}>
                   <img
                     src={item.image_url}
                     alt={item.name}
-                    className="w-full h-52 object-contain"
+                    className="w-96 h-72 object-cover hover:scale-[1.05] transition-transform duration-300 transform-origin-center mx-auto"
                   />
                 </Link>
-                <div className="p-4 flex flex-col flex-grow justify-between">
-                  <div>
+
+                <div className="p-4 flex flex-col flex-grow justify-between  hover:bg-black hover:text-white">
+                  <div className="">
                     <h3 className="text-xl font-bold">{item.name}</h3>
                     <p className="font-semibold text-red-500">${item.price}</p>
                     <p className="text-sm mt-2">{item.description}</p>
                   </div>
                   <button
-                    onClick={() => navigate(`/product/${item.id}`)}
+                    onClick={() => navigate(`/product/${item._id}`)}
                     className="mt-4 bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700 transition"
                   >
                     Order Now
@@ -76,7 +84,9 @@ const MenuSection = () => {
               </div>
             ))
           ) : (
-            <p className="text-center text-gray-600 col-span-full">No menu items found.</p>
+            <p className="text-center text-gray-600 col-span-full">
+              No menu items found.
+            </p>
           )}
         </div>
       </section>

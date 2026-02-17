@@ -11,7 +11,7 @@ export default function Navbar() {
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
           <Link to="/" className="text-2xl font-bold text-red-600">
-            Swaad Nation
+            Foodify
           </Link>
 
           {/* Desktop Menu */}

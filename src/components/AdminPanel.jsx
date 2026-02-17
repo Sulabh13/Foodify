@@ -95,7 +95,7 @@ const AdminPanel = () => {
   // Edit
   const handleEdit = (product) => {
     setForm({ ...product });
-    setEditId(product.id);
+    setEditId(product._id);
     setActiveSection("add");
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -251,7 +251,7 @@ const AdminPanel = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {products.map((p) => (
                   <div
-                    key={p.id}
+                    key={p._id}
                     className="bg-white p-4 rounded shadow flex flex-col items-center hover:shadow-lg transition-shadow duration-200"
                   >
                     <img
@@ -270,7 +270,7 @@ const AdminPanel = () => {
                         Edit
                       </button>
                       <button
-                        onClick={() => handleDelete(p.id)}
+                        onClick={() => handleDelete(p._id)}
                         className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
                       >
                         Delete

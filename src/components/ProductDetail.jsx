@@ -58,33 +58,20 @@ const ProductDetail = () => {
         comment: userComment,
       };
       
-      const { data } = await axios.post(`http://localhost:5000/api/menu/${id}/reviews`, newReview);
+      await axios.post(`http://localhost:5000/api/menu/${id}/reviews`, newReview);
       
-      console.log("API Response:", data);
+      // Fetch the updated product to get all reviews with proper formatting
+      const { data: updatedProduct } = await axios.get(`http://localhost:5000/api/menu/${id}`);
+      setItem(updatedProduct);
+      setReviews(updatedProduct.reviews || []);
       
-      // Handle different possible response formats from backend
-      if (data.reviews) {
-        // If backend returns the full reviews array
-        setReviews(data.reviews);
-      } else if (data.review) {
-        // If backend returns just the new review
-        setReviews(prevReviews => [...prevReviews, data.review]);
-      } else if (data) {
-        // If backend returns the updated product
-        setReviews(data.reviews || []);
-      } else {
-        // If backend returns something unexpected, just add our local review
-        setReviews(prevReviews => [...prevReviews, {
-          user: userName,
-          rating: userRating,
-          comment: userComment,
-          createdAt: new Date().toISOString()
-        }]);
-      }
-      
+      // Clear form
       setUserName('');
       setUserRating(5);
       setUserComment('');
+      
+      // Show success message
+      alert('Review submitted successfully!');
     } catch (err) {
       console.error('Failed to submit review:', err);
       setError('Failed to submit review. Please try again.');
@@ -162,7 +149,7 @@ const ProductDetail = () => {
             reviews.map((review, index) => (
               <div key={review._id || index} className="mb-4 border-b pb-4">
                 <p className="font-semibold">
-                  {review.user_name || (review.user_name && review.user_name) || 'Anonymous'}
+                  {review.user || 'Anonymous'}
                 </p>
                 <p className="text-yellow-500">
                   {'⭐'.repeat(review.rating)}{' '}

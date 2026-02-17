@@ -9,7 +9,7 @@ const Footer = () => {
 
         {/* Logo and Contact Info */}
         <div>
-          <h2 className="text-xl font-bold text-white mb-4">Swaad Nation</h2>
+          <h2 className="text-xl font-bold text-white mb-4">Foodify</h2>
           <p className="mb-4">Delivering delicious meals with care and quality, crafted to satisfy every craving.</p>
           <div className="flex items-center gap-2 mb-2">
             <MapPin className="w-5 h-5 text-yellow-500" />

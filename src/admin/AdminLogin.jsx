@@ -23,37 +23,37 @@ const AdminLogin = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/auth/admin/login", // ✅ match your backend controller route
+        "http://localhost:5000/api/auth/login",
         formData,
         { withCredentials: true }
       );
 
       const { id, name, email, message } = response.data;
 
-      // ✅ Save login state
+      // Save login state
       localStorage.setItem("isAdminAuthenticated", "true");
       localStorage.setItem(
         "adminInfo",
         JSON.stringify({ id, name, email })
       );
 
-      toast.success(message || "Login successful! Redirecting...");
+      toast.success(message || "Login successful!");
 
-      // Redirect after a short delay
+      // Navigate after short delay
       setTimeout(() => {
-        navigate("/admin/panel");
-      }, 1500);
+        navigate("/admin/panel", { replace: true });
+      }, 1200);
 
-      console.log("Login successful:", response.data);
     } catch (error) {
-      console.error("Login failed:", error.response?.data?.message);
-      toast.error(error.response?.data?.message || "Login failed");
+      const errMsg = error.response?.data?.message || "Login failed";
+      toast.error(errMsg);
+      console.error("Login failed:", errMsg);
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <ToastContainer position="top-right" autoClose={3000} />
+      <ToastContainer position="top-right" autoClose={2000} />
 
       <form
         onSubmit={handleLogin}
@@ -69,7 +69,8 @@ const AdminLogin = () => {
           value={formData.email}
           onChange={handleChange}
           placeholder="Email"
-          className="mb-4 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="mb-4 w-full px-4 py-2 border border-gray-300 rounded-lg
+                    focus:outline-none focus:ring-2 focus:ring-blue-500"
           required
         />
 
@@ -79,7 +80,8 @@ const AdminLogin = () => {
           value={formData.password}
           onChange={handleChange}
           placeholder="Password"
-          className="mb-6 w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="mb-6 w-full px-4 py-2 border border-gray-300 rounded-lg
+                    focus:outline-none focus:ring-2 focus:ring-blue-500"
           required
         />
 
